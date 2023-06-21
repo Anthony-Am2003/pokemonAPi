@@ -1,0 +1,35 @@
+.NavBar {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 10px;
+  position: relative;
+}
+
+.NavBar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 350px; /* Ajusta el ancho según tus necesidades */
+  height: 75px; /* Ajusta la altura según tus necesidades */
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1920px-International_Pok%C3%A9mon_logo.svg.png'); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
+  background-size:contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.NavBar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.NavBar button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
