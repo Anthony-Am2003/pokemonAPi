@@ -15,7 +15,7 @@ const About = ()=>{
         bootcampLink: "https://blog.soyhenry.com/",
         linkedinLink: "https://www.linkedin.com/in/anthony-m%C3%A1rquez-03bab2241/",
         githubLink: "https://github.com/Anthony-Am2003",
-        additionalInfo: "Este proyecto fue desarrollado, en mi Paso Por SoyHenry un Bootcamp de Programacion, el cual presente en mi Etapa de proyecto Individual",
+        additionalInfo: 'This project was developed, in my Step By SoyHenry, a Programming Bootcamp, which I present in my Individual Project Stage'
       };
     return(
         <div className="student-profile">
