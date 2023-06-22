@@ -2,10 +2,11 @@ const axios = require('axios');
 
 module.exports = async (name) => {
   try {
+    if(!name) throw new Error('Enter a name to search')
     const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const response = await axios.get(pokemonUrl);
     const pokemonInfo = response.data;
-
+    
     const pokemon = {
       id: pokemonInfo.id,
       name: pokemonInfo.name,
@@ -21,7 +22,11 @@ module.exports = async (name) => {
     };
     return pokemon;
   } catch (error) {
-    throw error
+    if (error.response && error.response.status === 404) {
+      console.log(error.response)
+      throw new Error('This pokemon not exist');
+    }
+    throw error;
   }
-};
+  };
 

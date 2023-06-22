@@ -3,9 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import axios from "axios";
 import "./NavBarra.css";
-import { changePage } from "../../Redux/action";
+import { changePage, setSource } from "../../Redux/action";
 import { useDispatch } from "react-redux";
-import { typeFilter } from "../../Redux/action";
+
 import { getPokemonId } from "../../Redux/action";
 
 const NavBar = () => {
@@ -21,11 +21,16 @@ const NavBar = () => {
         dispatch(getPokemonId(data.id))
       }
     } catch (error) {
-      alert("Pokemon No Encontrado");
+      if (error.response) {
+        alert(error.response.data);
+      } else {
+        alert("Error al Buscar El Pokemon");
+      }
     }
   };
   const handlePage = (event) => {
     dispatch(changePage(0));
+    dispatch(setSource('api'))
   };
 
   return (

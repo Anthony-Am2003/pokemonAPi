@@ -20,17 +20,23 @@ module.exports = (sequelize) => {
     life:{
       type:DataTypes.INTEGER,
       allowNull:false,
+      validate: {
+        max: 100, 
+      },
     },
     attack:{
       type:DataTypes.INTEGER,
       allowNull:false,
       validate: {
-        max: 500, 
+        max: 999, 
       },
     },
     defense:{
       type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        max: 999, 
+      },
     },
     type: {
       type: DataTypes.ARRAY(DataTypes.JSON), 
@@ -38,11 +44,17 @@ module.exports = (sequelize) => {
     },
     speed: {
       type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        max: 999, 
+      },
     },
     weight:{
       type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        max: 999, 
+      },
     },
 
   }, { timestamps: false });

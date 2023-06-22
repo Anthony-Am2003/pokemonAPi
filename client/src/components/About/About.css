@@ -1,0 +1,28 @@
+.student-profile {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    color: black;
+  }
+  
+  .graduate-photo {
+    width: 300px;
+    height: 300px;
+    border-radius:50%; 
+    margin: 20px 0;
+  }
+  
+  .bootcamp-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 80%;
+    position: absolute;
+  }
+  
+  .links {
+    margin: 10px 0;
+  }
+  
+  .links a {
+    margin: 0 5px;
+  }

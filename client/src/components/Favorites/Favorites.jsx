@@ -1,37 +1,28 @@
+import React from "react";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
-import { connect } from "react-redux";
-import './Favorites.css'
+import "./Favorites.css";
 
-const Favorites = ({myFavorites}) =>{
-    return (
-       <div>
+const Favorites = () => {
+  const myFavorites = useSelector((state) => state.myFavorites);
 
-       <div className="Favorites">
-            {myFavorites?.map(
-                ({id, name, attack, image, type}) =>{
-                    return(
-                        <Card
-                        key={id}
-                        id={id}
-                        name={name}
-                        attack={attack}
-                        image={image}
-                        type={type}
-                        />
-                        )
-                    }
-                    )
-                }
-        </div>
-                </div>
-    )
+  return (
+    <div>
+      <div className="Favorites">
+        {myFavorites.length === 0? <h1>Add Favorites</h1>: myFavorites?.map(({ id, name, attack, image, type }) => (
+          <Card
+            key={id}
+            id={id}
+            name={name}
+            attack={attack}
+            image={image}
+            type={type}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => {
-    return {
-      myFavorites: state.myFavorites,
-    };
-  };
-  
-  export default connect(mapStateToProps, null)(Favorites);
+export default Favorites;
   

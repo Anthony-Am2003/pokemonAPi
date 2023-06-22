@@ -1,33 +1,37 @@
-import Cards from '../Cards/Cards';
 import React, { useEffect } from "react";
 import "./Home.css";
-import { connect } from 'react-redux';
-import { orderCards, changePage, typeFilter, setSource } from '../../Redux/action';
+import { useSelector, useDispatch } from 'react-redux';
+import { orderCards, changePage, typeFilter, setSource, getPokemons, getTypes } from '../../Redux/action';
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import Cards from '../Cards/Cards';
 
-const Home = ({ types, pokemons, visiblePokemons}) => {
- const navigate = useNavigate();
+const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { page } = useParams();
   const currentPage = parseInt(page) || 0;
 
   useEffect(() => {
-    dispatch(changePage(currentPage));
+    const fetchPokemons = async () => {
+      if (pokemons.length === 0 || types.length === 0) {
+      await dispatch(getPokemons());
+      await dispatch(getTypes());
+      }
+      dispatch(changePage(currentPage));
+    };
 
-  }, [changePage, currentPage, dispatch]);
+    fetchPokemons();
+  }, [currentPage, dispatch]);
 
   const handleSourceChange = (event) => {
     dispatch(setSource(event.target.value));
-    dispatch(changePage(currentPage))
+    dispatch(changePage(currentPage));
   };
 
   const handleSortChange = (event) => {
     dispatch(orderCards(event.target.value));
-    dispatch(changePage(currentPage))
-    
+    dispatch(changePage(currentPage));
   };
 
   const handlePage = (event) => {
@@ -36,32 +40,39 @@ const Home = ({ types, pokemons, visiblePokemons}) => {
 
   const handleTypes = (event) => {
     dispatch(typeFilter(event.target.value));
-    dispatch(changePage(0))
-    navigate('/home/0')
+    dispatch(changePage(0));
+    navigate('/home/0');
   };
+
+  const types = useSelector(state => state.types);
+  const pokemons = useSelector(state => state.pokemons);
+  const visiblePokemons = useSelector(state => state.visiblePokemons);
 
   const itemsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / itemsPerPage);
-  const pagesArray = Array.from({ length: totalPages }, (_, index) => index + 0);
+  const pagesArray = [];
+  for(let i = 0; i<totalPages; i++){
+    pagesArray.push(i)
+  }
 
   return (
     <div className="Home">
       <div>
-        <label htmlFor="source">Fuente de datos:</label>
+        <label htmlFor="source">Data source:</label>
         <select id="source" onChange={handleSourceChange}>
           <option value="">...</option>
-          <option value="db">Base de Datos</option>
+          <option value="db">Created</option>
           <option value="api">API</option>
         </select>
-        <label htmlFor="sortOrder">Orden:</label>
+        <label htmlFor="sortOrder">Order:</label>
         <select id="sortOrder" onChange={handleSortChange}>
           <option value="">...</option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
-          <option value="attack">Mas Fuerte</option>
-          <option value="weakness">Mas Debil</option>
+          <option value="attack">Stronger</option>
+          <option value="weakness">Weaker</option>
         </select>
-                <label htmlFor="types">Types</label>
+        <label htmlFor="types">Types</label>
         <select id="types" onChange={handleTypes}>
           <option value="">...</option>
           {types.map((type) => (
@@ -71,11 +82,12 @@ const Home = ({ types, pokemons, visiblePokemons}) => {
           ))}
         </select>
       </div>
-      <Cards Pokemons={visiblePokemons} />
+      {visiblePokemons.length === 0 && <h1>There are no Pokemons of this type</h1>}
+      {visiblePokemons.length > 0 && <Cards Pokemons={visiblePokemons} />}
       <div className="pagination">
         <Link to={`/home/${currentPage - 1}`}>
           <button disabled={currentPage === 0} onClick={handlePage}>
-            Anterior
+          Previous
           </button>
         </Link>
         {pagesArray.map((pag) => (
@@ -86,24 +98,13 @@ const Home = ({ types, pokemons, visiblePokemons}) => {
           </Link>
         ))}
         <Link to={`/home/${currentPage + 1}`}>
-        <button disabled={currentPage === totalPages - 1} onClick={handlePage}>
-Siguiente
-</button>
-</Link>
-</div>
-</div>
-);
+          <button disabled={currentPage === totalPages - 1} onClick={handlePage}>
+            Next
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => {
-return {
-visiblePokemons: state.visiblePokemons,
-types: state.types,
-pokemons: state.pokemons,
-pokemonsBD: state.pokemonsBD
-};
-};
-
-
-
-export default connect(mapStateToProps, null)(Home);
+export default Home;

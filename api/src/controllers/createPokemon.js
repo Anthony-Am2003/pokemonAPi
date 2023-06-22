@@ -7,7 +7,7 @@ const createPokemon = async (pokemonData) => {
   if (!name || !image || !life || !attack || !defense || !types || !speed || !weight) {
     throw new Error('Falta información');
   }
-
+  
   const parsedSpeed = Number.parseInt(speed);
   const parsedWeight = Number.parseInt(weight);
   const parsedLife = Number.parseInt(life);

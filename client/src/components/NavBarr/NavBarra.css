@@ -11,8 +11,8 @@
   position: absolute;
   top: 0;
   left: 15px;
-  width: 350px; /* Ajusta el ancho según tus necesidades */
-  height: 75px; /* Ajusta la altura según tus necesidades */
+  width: 350px; 
+  height: 75px; 
   background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1920px-International_Pok%C3%A9mon_logo.svg.png'); /* Reemplaza 'ruta-de-la-imagen.jpg' con la ruta de tu imagen */
   background-size:contain;
   background-position: center;

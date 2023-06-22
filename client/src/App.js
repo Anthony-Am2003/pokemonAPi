@@ -9,9 +9,17 @@ import DetailPokemones from './components/Detail/Detail';
 import About from './components/About/About'
 import NavBar from './components/NavBarr/NavBar';
 import Favorites from './components/Favorites/Favorites';
+import { useEffect } from 'react';
+import NotFound from '../src/components/NotFound/NotFound'
+
 function App() {
 const {pathname} = useLocation()
-
+const location = useLocation();
+useEffect(() => {
+  if (location.state && location.state.error) {
+    alert('This Route not exist');
+  }
+}, [location]);
   return (
     <div className="App">
  {pathname !== "/" && <NavBar/>}
@@ -22,6 +30,7 @@ const {pathname} = useLocation()
           <Route  path="/home/:page" element={<Home/>} />
           <Route  path="/create" element={<CreatePokemon/>} />
           <Route  path="/detail/:id" element={<DetailPokemones/>} />
+          <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

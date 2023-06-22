@@ -15,8 +15,8 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <div className="SearchBar">
-      <input type="search" onChange={handleChange} value={name} />
-      <button onClick={handleSearch}>Buscar</button>
+      <input type="search" onChange={handleChange} value={name} placeholder="Search a Pokemon"/>
+      <button onClick={handleSearch}>Search</button>
     </div>
   );
 };
